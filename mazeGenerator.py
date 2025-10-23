@@ -12,7 +12,6 @@ m.generate_entrances()
 m.grid[m.start] = 0
 m.grid[m.end] = 0
 
-
 def showMaze(grid):
     plt.figure(figsize=(10, 5))
     plt.imshow(grid, cmap=plt.cm.binary, interpolation='nearest')
