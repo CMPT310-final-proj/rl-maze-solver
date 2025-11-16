@@ -12,9 +12,3 @@ def generateMaze():
     m.grid[m.start] = 0
     m.grid[m.end] = 0
     return np.array(m.grid), m.start, m.end
-
-def showMaze(grid):
-    plt.figure(figsize=(10, 5))
-    plt.imshow(grid, cmap=plt.cm.binary, interpolation='nearest')
-    plt.xticks([]), plt.yticks([])
-    plt.show()
