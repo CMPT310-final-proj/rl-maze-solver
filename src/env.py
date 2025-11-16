@@ -18,6 +18,10 @@ class Env(gym.Env):
             dtype=np.int32,
         )
 
+        self.fig = None
+        self.ax = None
+        self.img = None
+
     def reset(self, seed=None, options=None):
         super().reset(seed=seed)
         self.pos = self.start
@@ -45,4 +49,20 @@ class Env(gym.Env):
         return np.array(self.pos, dtype=np.int32), reward, terminated, {}
 
     def render(self):
-        return
+        display_grid = self.grid.astype(float)
+        gr, gc = self.goal
+        display_grid[gr, gc] = 0  
+
+        if self.pos is not None:
+            pr, pc = self.pos
+            display_grid[pr, pc] = 0.5 
+
+        if self.fig is None:
+            self.fig, self.ax = plt.subplots(figsize=(5, 5))
+            self.img = self.ax.imshow(display_grid, cmap=plt.cm.binary, interpolation='nearest')
+            self.ax.set_xticks([])
+            self.ax.set_yticks([])
+        else:
+            self.img.set_data(display_grid)
+
+        plt.pause(0.1)

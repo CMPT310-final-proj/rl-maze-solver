@@ -48,6 +48,7 @@ def run_greedy(env, Q, max_steps=300):
         action = int(np.argmax(Q[row, col]))
         position, reward, terminated, _ = env.step(action)
         row, col = position
+        env.render()
 
         if terminated:
             print(f"Solved in {t+1} steps!")
