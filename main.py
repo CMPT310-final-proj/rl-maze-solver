@@ -1,12 +1,10 @@
 from src.env import Env
+from src.q_learning import train_q_learning, run_greedy
 
 def main():
     env = Env()
-    obs, info = env.reset()
-    print("Initial:", obs, "Goal:", env.goal)
-    for a in range(4):
-        o, r, done, info = env.step(a)
-        print(f"Action {a} -> Obs={o}, Reward={r}, Done={done}")
-        env.render()
+    Q = train_q_learning(env)
+
+    run_greedy(env, Q)
 
 main()

@@ -18,24 +18,23 @@ class Env(gym.Env):
             dtype=np.int32,
         )
 
-
     def reset(self, seed=None, options=None):
         super().reset(seed=seed)
         self.pos = self.start
         return np.array(self.pos, dtype=np.int32), {}
 
     def step(self, action):
-        r, c = self.pos
-        dr, dc = [(-1,0), (1,0), (0,-1), (0,1)][int(action)]
-        nr, nc = r + dr, c + dc
+        row, col = self.pos
+        d_row, d_col = [(-1,0), (1,0), (0,-1), (0,1)][int(action)]
+        new_row, new_col = row + d_row, col + d_col
 
         reward = -1.0
         terminated = False
 
-        if (0 <= nr < self.grid.shape[0] and
-            0 <= nc < self.grid.shape[1] and
-            self.grid[nr, nc] == 0):
-            self.pos = (nr, nc)
+        if (0 <= new_row < self.grid.shape[0] and
+            0 <= new_col < self.grid.shape[1] and
+            self.grid[new_row, new_col] == 0):
+            self.pos = (new_row, new_col)
         else:
             reward = -10.0 
 
