@@ -1,5 +1,5 @@
 from src.env import Env
-from src.q_learning import train_q_learning, run_greedy
+from src.q_learning import q_learning, run_greedy
 import matplotlib.pyplot as plt
 
 EPISODES = 1000
@@ -9,7 +9,7 @@ GAMMA = 0.95
 
 def main():
     env = Env()
-    Q = train_q_learning(env, EPISODES, MAX_STEPS, ALPHA, GAMMA)
+    Q = q_learning(env, EPISODES, MAX_STEPS, ALPHA, GAMMA)
 
     # show the learned policy
     run_greedy(env, Q)

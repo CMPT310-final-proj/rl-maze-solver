@@ -22,20 +22,19 @@ class Env(gym.Env):
         ]
 
         # making sure treasure doesn't end up in the entrance/exit
-        self._treasure_candidates = [
+        self.treasure_candidates = [
             cell for cell in free_cells
             if cell not in (self.start, self.goal)
         ]
 
         # treasure location
-        self.treasure = ran.choice(self._treasure_candidates)
-
+        self.treasure = ran.choice(self.treasure_candidates)
 
         self.action_space = spaces.Discrete(4)
         self.observation_space = spaces.Box(
-            low=np.array([0, 0]),
-            high=np.array([self.grid.shape[0]-1, self.grid.shape[1]-1]),
-            shape=(2,),
+            low=np.array([0, 0, 0]), 
+            high=np.array([self.grid.shape[0]-1, self.grid.shape[1]-1, 1]), 
+            shape=(3,), 
             dtype=np.int32,
         )
 
@@ -43,14 +42,16 @@ class Env(gym.Env):
         self.ax = None
         self.img = None
 
-    def reset(self, seed=None, options=None):
+    def reset(self, seed=None):
         super().reset(seed=seed)
         self.position = self.start
 
         # reset treasure state each episode
         self.has_treasure = False
 
-        return np.array(self.position, dtype=np.int32), {}
+        observation = np.array([self.position[0], self.position[1], int(self.has_treasure)], dtype=np.int32)
+
+        return observation, {}
 
     def step(self, action):
         row, col = self.position
@@ -74,12 +75,16 @@ class Env(gym.Env):
             self.has_treasure = True
             reward += 50.0
 
-        # reward for reaching goal
+        # reward for reaching goal with or wihout treasure
         if self.position == self.goal:
-            reward = 100.0
             terminated = True
+            if self.has_treasure: 
+                reward += 100.0  # with treasure
+            else:
+                reward = -5.0 # without treasure
 
-        return np.array(self.position, dtype=np.int32), reward, terminated, {}
+        observation = np.array([self.position[0], self.position[1], int(self.has_treasure)], dtype=np.int32)
+        return observation, reward, terminated, {}
 
     def render(self):
         height, width = self.grid.shape
