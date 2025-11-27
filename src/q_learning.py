@@ -40,6 +40,7 @@ def train_q_learning(env, episodes=600, max_steps=300, alpha=0.1, gamma=0.95):
 
     return Q
 
+# function that renders the agents learn policy
 def run_greedy(env, Q, max_steps=300):
     position, _ = env.reset()
     row, col = position
