@@ -41,7 +41,7 @@ def q_learning(env, episodes, max_steps, alpha, gamma):
     return Q
 
 # function that renders the agents learned policy
-def run_greedy(env, Q, max_steps=300):
+def run_greedy(env, Q, max_steps):
     observation, _ = env.reset()
     row, col, has_treasure = observation
 
