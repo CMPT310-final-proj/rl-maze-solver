@@ -1,9 +1,6 @@
 import numpy as np
 import random as ran
 
-import numpy as np
-import random as ran
-
 def q_learning(env, episodes, max_steps, alpha, gamma):
     grid = env.grid
     n_rows, n_cols = grid.shape
@@ -85,4 +82,5 @@ def run_greedy(env, Q, max_steps):
         if terminated:
             return True, t + 1
 
+    # return these when q learning didn't converge to an optimal policy
     return False, max_steps

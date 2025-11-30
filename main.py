@@ -4,6 +4,10 @@ from src.search import maze_bfs
 import matplotlib.pyplot as plt
 import numpy as np
 
+######################
+# RUN THIS FILE ONLY #
+######################
+
 EPISODES = 5000
 MAX_STEPS = 300
 ALPHA = 0.1
@@ -12,7 +16,6 @@ GAMMA = 0.95
 def main():
     env = Env()
     Q, episode_rewards, episode_lengths, success_count = q_learning(env, EPISODES, MAX_STEPS, ALPHA, GAMMA)
-
 
     print("\nTraining summary:")
     print(f"Episodes:                   {len(episode_rewards)}")
@@ -26,25 +29,25 @@ def main():
     if solved:
         print(f"Solved in {steps} steps")
     else:
-        print("Did not learn to reach the goal")
+        print("Policy did not learn to reach the goal")
 
     # optional graphs to visualize metrics
 
-    # plt.figure()
-    # plt.plot(episode_rewards)
-    # plt.xlabel("Episode")
-    # plt.ylabel("Total reward")
-    # plt.title("Episode rewards")
-    # plt.grid(True)
-    # plt.show()
+    plt.figure()
+    plt.plot(episode_rewards)
+    plt.xlabel("Episode")
+    plt.ylabel("Total reward")
+    plt.title("Episode rewards")
+    plt.grid(True)
+    plt.show()
 
-    # plt.figure()
-    # plt.plot(episode_lengths)
-    # plt.xlabel("Episode")
-    # plt.ylabel("Steps")
-    # plt.title("Episode lengths")
-    # plt.grid(True)
-    # plt.show()
+    plt.figure()
+    plt.plot(episode_lengths)
+    plt.xlabel("Episode")
+    plt.ylabel("Steps")
+    plt.title("Episode lengths")
+    plt.grid(True)
+    plt.show()
 
     grid = env.grid
     start = env.start
@@ -54,6 +57,8 @@ def main():
     bfs_path, bfs_expanded = maze_bfs(grid, start, treasure, goal)
     if bfs_path is not None:
         bfs_steps = len(bfs_path) - 1
+
+        print("\nBFS Summary:")
         print(f"BFS steps: {bfs_steps}")
         print(f"Nodes expanded: {bfs_expanded}")
     else:

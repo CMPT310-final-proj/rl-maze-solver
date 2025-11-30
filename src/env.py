@@ -38,6 +38,7 @@ class Env(gym.Env):
             dtype=np.int32,
         )
 
+        # iniatilization for visualization
         self.fig = None
         self.ax = None
         self.img = None
