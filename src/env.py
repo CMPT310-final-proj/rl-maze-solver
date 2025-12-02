@@ -89,59 +89,59 @@ class Env(gym.Env):
         return observation, reward, terminated, {}
 
 
-def render(self):
-    height, width = self.grid.shape
-    img = np.zeros((height, width, 3), dtype=float)
+    def render(self):
+        height, width = self.grid.shape
+        img = np.zeros((height, width, 3), dtype=float)
 
-    # free space = grey
-    img[self.grid == 0] = [0.8, 0.8, 0.8]
+        # free space = grey
+        img[self.grid == 0] = [0.8, 0.8, 0.8]
 
-    # walls = black
-    img[self.grid == 1] = [0, 0, 0]
+        # walls = black
+        img[self.grid == 1] = [0, 0, 0]
 
-    # treasure = yellow
-    if not self.has_treasure:
-        treasure_row, treasure_col = self.treasure
-        img[treasure_row, treasure_col] = [1, 1, 0]
+        # treasure = yellow
+        if not self.has_treasure:
+            treasure_row, treasure_col = self.treasure
+            img[treasure_row, treasure_col] = [1, 1, 0]
 
-    # goal = green
-    goal_row, goal_col = self.goal
-    img[goal_row, goal_col] = [0, 1, 0]
+        # goal = green
+        goal_row, goal_col = self.goal
+        img[goal_row, goal_col] = [0, 1, 0]
 
-    # start = blue
-    start_row, start_col = self.start
-    img[start_row, start_col] = [0, 0, 1]
+        # start = blue
+        start_row, start_col = self.start
+        img[start_row, start_col] = [0, 0, 1]
 
-    # agent = red
-    if self.position is not None:
-        agent_row, agent_col = self.position
-        img[agent_row, agent_col] = [1, 0, 0]
+        # agent = red
+        if self.position is not None:
+            agent_row, agent_col = self.position
+            img[agent_row, agent_col] = [1, 0, 0]
 
-    if self.fig is None:
-        # set up for legend
-        self.fig, self.ax = plt.subplots(figsize=(6.5, 5))
-        self.img = self.ax.imshow(img)
-        self.ax.set_xticks([])
-        self.ax.set_yticks([])
+        if self.fig is None:
+            # set up for legend
+            self.fig, self.ax = plt.subplots(figsize=(6.5, 5))
+            self.img = self.ax.imshow(img)
+            self.ax.set_xticks([])
+            self.ax.set_yticks([])
 
-        # legend 
-        legend_elements = [
-            Patch(facecolor=(0, 0, 1), label='Start'),
-            Patch(facecolor=(0, 1, 0), label='Goal'),
-            Patch(facecolor=(1, 1, 0), label='Treasure'),
-            Patch(facecolor=(1, 0, 0), label='Agent'),
-        ]
+            # legend 
+            legend_elements = [
+                Patch(facecolor=(0, 0, 1), label='Start'),
+                Patch(facecolor=(0, 1, 0), label='Goal'),
+                Patch(facecolor=(1, 1, 0), label='Treasure'),
+                Patch(facecolor=(1, 0, 0), label='Agent'),
+            ]
 
-        # put legend outside the maze
-        self.ax.legend(
-            handles=legend_elements,
-            loc='center left',
-            bbox_to_anchor=(1.05, 0.5),
-            borderaxespad=1.0
-        )
+            # put legend outside the maze
+            self.ax.legend(
+                handles=legend_elements,
+                loc='center left',
+                bbox_to_anchor=(1.05, 0.5),
+                borderaxespad=1.0
+            )
 
-        plt.tight_layout()
-    else:
-        self.img.set_data(img)
+            plt.tight_layout()
+        else:
+            self.img.set_data(img)
 
-    plt.pause(0.1)
+        plt.pause(0.1)

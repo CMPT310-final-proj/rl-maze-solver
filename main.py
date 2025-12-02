@@ -39,7 +39,7 @@ def main():
     plt.ylabel("Total reward")
     plt.title("Episode rewards")
     plt.grid(True)
-    plt.show()
+    plt.show(block=False)
 
     plt.figure()
     plt.plot(episode_lengths)
@@ -47,7 +47,7 @@ def main():
     plt.ylabel("Steps")
     plt.title("Episode lengths")
     plt.grid(True)
-    plt.show()
+    plt.show(block=False)
 
     grid = env.grid
     start = env.start
@@ -70,7 +70,9 @@ def main():
         print(f"BFS # of steps: {bfs_steps}")
         print(f"Agent # of steps: {steps}")
         print(f"Difference in steps: {extra}")
-
+    
+    print("\nClose the maze window to exit the program.")
+    plt.show()
 
 if __name__ == "__main__":
     main()

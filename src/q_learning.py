@@ -80,6 +80,19 @@ def run_greedy(env, Q, max_steps):
         env.render()
 
         if terminated:
+            env.ax.text(
+                0.5, 0.5,
+                f"SOLVED IN {t + 1} STEPS!",
+                transform=env.ax.transAxes,
+                fontsize=20,
+                fontweight='bold',
+                color='red',
+                ha='center',
+                va='center',
+                bbox=dict(facecolor='white', alpha=0.7, edgecolor='red')
+            )
+            env.fig.canvas.draw()
+            env.fig.canvas.flush_events()
             return True, t + 1
 
     # return these when q learning didn't converge to an optimal policy
