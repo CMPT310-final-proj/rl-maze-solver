@@ -100,11 +100,11 @@ rl-maze-solver/
 │
 ├── main.py # Run this file
 ├── src/
-│ ├── env.py # Custom Gymnasium environment
-│ ├── mazeGenerator.py # Prim’s Algorithm maze generator
-│ ├── q_learning.py # Q-Learning training + greedy solver
-│ ├── search.py # BFS baseline search
-│ └── init.py
+│ ├── env.py
+│ ├── mazeGenerator.py 
+│ ├── q_learning.py 
+│ └── search.py 
+│ 
 │
 ├── README.md
 ```
